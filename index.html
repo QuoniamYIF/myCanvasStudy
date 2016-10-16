@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>myCanvasStudy</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <canvas id="c" width="500" height="500"></canvas>
+        <script src="src/jquery.min.js"></script>
+        <script>
+            //var c = $("#c");
+            var c = document.querySelector("#c");
+            var ctx = c.getContext("2d");
+            //============================== C.1
+            //在 canvas 里画图片 (200 * 200)
+            /*
+                var image = new Image();
+                
+                image.onload = function() {
+                    console.log("loaded image");
+                    //doSomethingElse()
+
+                    ctx.drawImage(image, 0, 0, c.width, c.height);
+                    var saveImage = c.toDataURL();
+                    //console.log(saveImage);
+                    window.open(saveImage);
+                }
+
+                image.src = "./images/1.jpeg";
+            */
+
+            //============================== C.2
+            //在 canvas 里画 rectangle (500 * 500)
+
+            //para: x, y, width, height
+            /*
+                ctx.fillStyle = "blue"; 
+                ctx.fillRect(100, 100, 100, 100);
+
+                ctx.strokeStyle = "red";
+                ctx.strokeRect(50, 50, 100, 50);
+
+                ctx.fillRect(0, 0, 50, 50);
+                ctx.clearRect(0, 0, 25, 25);
+            */
+
+            // 将会清除整个画布 (下面的任意一行)
+            // ctx.clearRect(0, 0, c.width, c.height);
+            // c.width = c.width;
+            
+            //=============================== C.3
+            // 使用 Path 概念在画布上画东西
+            /*
+                //ctx.fillRect(50,20,100,50);                
+
+                ctx.beginPath();
+                ctx.rotate(20*Math.PI/180);
+                
+                //ctx.scale(2, 2);                        
+                //ctx.translate(20, 20);
+                ctx.moveTo(10, 10);
+                ctx.lineTo(50, 50);
+                ctx.lineTo(50, 10);
+                ctx.lineTo(10, 10);                
+                //ctx.fill();
+                ctx.stroke();
+                
+            */
+
+            //=============================== C.4
+            // You should generally scale objects first, rotate them next, and then finally translate last. There are times when you'd want to rotate around an arbitrary point instead of an object's center, that's out of scope for this lesson.
+
+            // It’s important to note that whatever transformations apply for all subsequent objects until you reverse them.
+            // 一些常见的 canvas API
+            // rotate / scale / translate
+            // save / restore
+
+            //=============================== C.5
+            // 关于 save 和 store 的使用
+            /*
+                var c = document.querySelector("#c");
+                var ctx = c.getContext("2d");
+
+                ctx.fillStyle = "blue";
+                ctx.fillRect(0,0,50,50);
+
+                ctx.fillStyle = "green"
+                ctx.fillRect(100,100,10,10);
+
+                ctx.fillStyle = "blue";
+                ctx.fillRect(200,10,20,20);
+
+                //下面的使用方法更好
+
+                var c = document.querySelector("#c");
+                var ctx = c.getContext("2d");
+
+                ctx.fillStyle = "blue";
+                ctx.fillRect(0,0,50,50);
+
+                // Save state with blue fill
+                ctx.save();
+                ctx.fillStyle = "green";
+                ctx.fillRect(100,100,10,10);
+                // Restore to blue fill
+                ctx.restore();
+
+                ctx.fillRect(200,10,20,20);
+            */
+
+            //================================ C.6
+            // 设置颜色要在画这一步骤之前
+            // fillStyle | strokeStyle
+
+            //================================ C.7
+            //使用 canvas 画文字
+            /*
+                ctx.font = "bold 36pt sans-serif";            
+                ctx.textAlign = "center";            
+                ctx.fillStyle = "white";
+                ctx.fillText("Hello, World", c.width/2, 40);            
+                ctx.strokeStyle = "black"; 
+                ctx.lineWidth = 3;           
+                ctx.strokeText("Hello, World", c.width/2, 40);
+            */
+        </script>
+    </body>
+</html>

@@ -7,7 +7,6 @@
     </head>
     <body>
         <canvas id="c" width="500" height="500"></canvas>
-        <script src="src/jquery.min.js"></script>
         <script>
             //var c = $("#c");
             var c = document.querySelector("#c");
@@ -124,6 +123,62 @@
                 ctx.lineWidth = 3;           
                 ctx.strokeText("Hello, World", c.width/2, 40);
             */
+            //================================ C.8
+            //事件每第十个像素画一条竖线
+            /*
+            var data = ctx.getImageData(0, 0, 400, 400);
+
+            //console.log(data.data);
+            function paintGreen(imageData) {
+                var numPixels = imageData.data.length /4;
+                for(var i = 0; i < numPixels; i++) {
+                    if(i % 10 === 0) {
+                        imageData.data[i * 4 + 1] = 255;
+                        imageData.data[i * 4 + 3] = 255;
+                    }
+                }
+                ctx.putImageData(imageData, 0, 0);
+            }
+            
+            paintGreen(data);
+            */
+            //================================ C.9
+            var image = new Image();
+            image.onload = function() {
+                ctx.drawImage(image, 0, 0);
+                makeGrayScale();
+            }          
+            //image.setAttribute('crossOrigin', '*');
+
+            image.src = "./images/2.jpeg";
+
+            var makePixelGrayScale = function(r, g, b, a) {
+                var y = (0.3 * r) + (0.59 * g) + (0.11 * b);
+                return {r: y, g: y, b: y, a: y};
+            }
+
+            function makeGrayScale() {
+                var r, g, b, a;
+
+                var imageData = ctx.getImageData(0,0, 500, 500);
+                //console.log(imageData);
+                var numPixels = imageData.data.length / 4;
+                for(var i = 0;i < numPixels;i ++) {
+                    r = imageData.data[i * 4 + 0];
+                    g = imageData.data[i * 4 + 1];
+                    b = imageData.data[i * 4 + 2];
+                    a = imageData.data[i * 4 + 3];
+                    pixel = makePixelGrayScale(r, g, b, a);
+                    imageData.data[i * 4 + 0] = pixel.r;
+                    imageData.data[i * 4 + 0] = pixel.g;
+                    imageData.data[i * 4 + 0] = pixel.b;
+                    imageData.data[i * 4 + 0] = pixel.a;  
+                    //console.log(pixel);                  
+                }
+                ctx.putImageData(imageData, 0, 0); 
+            }
+
+            makeGrayScale();
         </script>
     </body>
 </html>
